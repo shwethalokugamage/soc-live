@@ -1,11 +1,31 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-accent: #2563eb;
-  --color-accent-light: #3b82f6;
-  --color-marked: #dcfce7;
-  --color-marked-border: #22c55e;
-  --color-bingo: #fbbf24;
+  --color-cyber-bg: #04040f;
+  --color-cyber-panel: #09091e;
+  --color-cyber-border: #1a1a3e;
+  --color-cyber-cyan: #00f5ff;
+  --color-cyber-pink: #ff0080;
+  --color-cyber-yellow: #ffee00;
+  --color-cyber-green: #00ff41;
+  --color-cyber-text: #c8d8e8;
+  --color-cyber-muted: #334466;
+  --color-marked: #001a08;
+  --color-marked-border: #00ff41;
+  --color-bingo: #ffee00;
+  --color-accent: #00f5ff;
+  --color-accent-light: #40f8ff;
+
+  --font-display: 'Orbitron', 'Courier New', monospace;
+  --font-body: 'Share Tech Mono', 'Courier New', monospace;
+
+  --animate-fade-in-up: fade-in-up 0.6s ease-out both;
+  --animate-fade-in-up-delay: fade-in-up 0.6s 0.15s ease-out both;
+  --animate-fade-in-up-delay2: fade-in-up 0.6s 0.3s ease-out both;
+  --animate-neon-flicker: neon-flicker 4s ease-in-out infinite;
+  --animate-pink-flicker: pink-flicker 4s 1s ease-in-out infinite;
+  --animate-bingo-celebrate: bingo-celebrate 0.5s ease-out both;
+  --animate-scan-bar: scan-bar 3s linear infinite;
 }
 
 html,
@@ -16,6 +36,161 @@ body,
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
+  background-color: var(--color-cyber-bg);
+  color: var(--color-cyber-text);
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Scanlines overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Keyframes */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 6px var(--color-cyber-cyan),
+      0 0 16px var(--color-cyber-cyan),
+      0 0 36px var(--color-cyber-cyan);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+@keyframes pink-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 6px var(--color-cyber-pink),
+      0 0 16px var(--color-cyber-pink),
+      0 0 36px var(--color-cyber-pink);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+@keyframes border-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 6px color-mix(in oklab, var(--color-cyber-cyan) 50%, transparent),
+      0 0 12px color-mix(in oklab, var(--color-cyber-cyan) 20%, transparent),
+      inset 0 0 6px color-mix(in oklab, var(--color-cyber-cyan) 5%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 10px color-mix(in oklab, var(--color-cyber-cyan) 80%, transparent),
+      0 0 24px color-mix(in oklab, var(--color-cyber-cyan) 40%, transparent),
+      inset 0 0 10px color-mix(in oklab, var(--color-cyber-cyan) 8%, transparent);
+  }
+}
+
+@keyframes bingo-celebrate {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes glitch-text {
+  0%, 100% {
+    clip-path: inset(0 0 100% 0);
+    transform: translate(0);
+  }
+  10% {
+    clip-path: inset(10% 0 60% 0);
+    transform: translate(-3px, 1px);
+  }
+  20% {
+    clip-path: inset(40% 0 30% 0);
+    transform: translate(3px, -1px);
+  }
+  30% {
+    clip-path: inset(70% 0 5% 0);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+}
+
+@keyframes scan-bar {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* Utility classes */
+.cyber-grid-bg {
+  background-color: var(--color-cyber-bg);
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--color-cyber-cyan) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--color-cyber-cyan) 4%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.neon-cyan {
+  color: var(--color-cyber-cyan);
+  animation: neon-flicker 4s ease-in-out infinite;
+}
+
+.neon-pink {
+  color: var(--color-cyber-pink);
+  animation: pink-flicker 4s 1s ease-in-out infinite;
+}
+
+.neon-border-cyan {
+  border: 1px solid var(--color-cyber-cyan);
+  animation: border-pulse 3s ease-in-out infinite;
+}
+
+.glitch-layer {
+  position: absolute;
+  inset: 0;
+  color: var(--color-cyber-pink);
+  animation: glitch-text 2.5s 0.5s step-end infinite;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cyber-btn-glow {
+  box-shadow:
+    0 0 18px color-mix(in oklab, var(--color-cyber-cyan) 35%, transparent),
+    inset 0 0 18px color-mix(in oklab, var(--color-cyber-cyan) 4%, transparent);
+}
+

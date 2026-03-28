@@ -17,28 +17,30 @@ export function GameScreen({
   onReset,
 }: GameScreenProps) {
   return (
-    <div className="flex flex-col min-h-full bg-gray-50">
+    <div className="flex flex-col min-h-full cyber-grid-bg">
       {/* Header */}
-      <header className="flex items-center justify-between p-3 bg-white border-b border-gray-200">
+      <header className="flex items-center justify-between px-3 py-2 bg-cyber-panel border-b border-cyber-cyan/30">
         <button
           onClick={onReset}
-          className="text-gray-500 text-sm px-3 py-1.5 rounded active:bg-gray-100"
+          className="text-cyber-cyan text-xs font-display tracking-widest px-3 py-1.5 border border-cyber-cyan/40 active:bg-cyber-cyan/10 transition-colors"
         >
-          ← Back
+          ← ABORT
         </button>
-        <h1 className="font-bold text-gray-900">Soc Ops</h1>
-        <div className="w-16"></div>
+        <h1 className="font-display font-bold text-sm tracking-widest neon-cyan">SOC OPS</h1>
+        <div className="w-20" />
       </header>
 
       {/* Instructions */}
-      <p className="text-center text-gray-500 text-sm py-2 px-4">
-        Tap a square when you find someone who matches it.
+      <p className="text-center text-cyber-muted text-xs py-2 px-4 tracking-wide font-display">
+        TAP A SQUARE WHEN YOU FIND A MATCH
       </p>
 
       {/* Bingo indicator */}
       {hasBingo && (
-        <div className="bg-amber-100 text-amber-800 text-center py-2 font-semibold text-sm">
-          🎉 BINGO! You got a line!
+        <div className="text-center py-2 font-display text-xs tracking-[0.3em] font-bold text-cyber-yellow"
+          style={{ textShadow: `0 0 10px var(--color-cyber-yellow), 0 0 24px var(--color-cyber-yellow)` }}
+        >
+          ⚡ BINGO — LINE COMPLETE ⚡
         </div>
       )}
 
